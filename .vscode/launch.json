@@ -1,0 +1,96 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+         {
+            "name": "QEMU debug",        
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/debug/Application.elf",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "externalConsole": false,        
+            "linux": {
+                "MIMode": "gdb",
+                "miDebuggerPath": "/opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/bin/arm-none-eabi-gdb"
+            },
+            "osx": {
+              "MIMode": "lldb",
+              "miDebuggerPath": "/usr/local/bin/arm-none-eabi-gdb"
+            },
+            "logging": { "engineLogging": true },
+            "miDebuggerServerAddress": "host.docker.internal:1234",   
+            "debugServerPath": "${workspaceFolder}/run-qemu.sh",
+            "debugServerArgs": "diag gdb ${workspaceFolder}/build/debug/Application.elf",
+        },
+        {
+            "name": "QEMU debug serial",        
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/debug/Application.elf",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "externalConsole": false,        
+            "linux": {
+                "MIMode": "gdb",
+                "miDebuggerPath": "/opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/bin/arm-none-eabi-gdb"
+            },
+            "osx": {
+              "MIMode": "lldb",
+              "miDebuggerPath": "/usr/local/bin/arm-none-eabi-gdb"
+            },
+            "logging": { "engineLogging": false },
+            "miDebuggerServerAddress": "host.docker.internal:1234",   
+            "debugServerPath": "${workspaceFolder}/run-qemu.sh",
+            "debugServerArgs": "diag serial gdb ${workspaceFolder}/build/debug/Application.elf",
+        },
+        {
+            "name": "QEMU debug container",        
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/debug/Application.elf",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "externalConsole": false,        
+            "linux": {
+                "MIMode": "gdb",
+                "miDebuggerPath": "/opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/bin/arm-none-eabi-gdb"
+            },
+            "osx": {
+              "MIMode": "lldb",
+              "miDebuggerPath": "/usr/local/bin/arm-none-eabi-gdb"
+            },
+            "logging": { "engineLogging": false },
+            "miDebuggerServerAddress": "host.docker.internal:1234",   
+            "debugServerPath": "${workspaceFolder}/run-qemu.sh",
+            "debugServerArgs": "-nographic gdb ${workspaceFolder}/build/debug/Application.elf",
+        },
+        {
+            "name": "QEMU debug container serial",        
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/debug/Application.elf",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "externalConsole": false,        
+            "linux": {
+                "MIMode": "gdb",
+                "miDebuggerPath": "/opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/bin/arm-none-eabi-gdb"
+            },
+            "osx": {
+              "MIMode": "lldb",
+              "miDebuggerPath": "/usr/local/bin/arm-none-eabi-gdb"
+            },
+            "logging": { "engineLogging": false },
+            "miDebuggerServerAddress": "host.docker.internal:1234",   
+            "debugServerPath": "${workspaceFolder}/run-qemu.sh",
+            "debugServerArgs": "-nographic gdb serial ${workspaceFolder}/build/debug/Application.elf",
+        }
+    ]
+}

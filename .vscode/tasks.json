@@ -1,0 +1,76 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "${workspaceFolder}/build.sh",
+            "args": [],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Clean",
+            "type": "shell",
+            "command": "${workspaceFolder}/build.sh",
+            "args": [
+                "clean"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Reset",
+            "type": "shell",
+            "command": "${workspaceFolder}/build.sh",
+            "args": [
+                "reset"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Run QEMU",
+            "dependsOn": "Build",
+            "type": "shell",
+            "command": "${workspaceFolder}/run-qemu.sh",
+            "args": [ "diag" ],
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Run QEMU serial",
+            "dependsOn": "Build",
+            "type": "shell",
+            "command": "${workspaceFolder}/run-qemu.sh",
+            "args": [ "diag", "serial" ],
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Run QEMU container",
+            "dependsOn": "Build",
+            "type": "shell",
+            "command": "${workspaceFolder}/run-qemu.sh",
+            "args": [
+                "-nographic",
+                "${workspaceFolder}/build/debug/Application.elf"
+            ],
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Run QEMU container serial",
+            "dependsOn": "Build",
+            "type": "shell",
+            "command": "${workspaceFolder}/run-qemu.sh",
+            "args": [
+                "-nographic",
+                "serial",
+                "${workspaceFolder}/build/debug/Application.elf"
+            ],
+            "group": "test",
+            "problemMatcher": []
+        }
+    ]
+}
