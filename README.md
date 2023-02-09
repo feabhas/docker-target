@@ -1,4 +1,4 @@
-# Feahas Docker Training Project
+# Feabhas Docker Training Project
 
 # Getting Started
 
