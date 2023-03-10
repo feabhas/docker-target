@@ -5,9 +5,13 @@
 
     "image": "feabhas/ubuntu-projects:latest",
 
-    "extensions": [
-        "ms-vscode.cpptools"
-    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools"
+            ]
+        }
+    },
     
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     "forwardPorts": [ 7777, 8888 ],
