@@ -15,7 +15,7 @@
             "externalConsole": false,        
             "linux": {
                 "MIMode": "gdb",
-                "miDebuggerPath": "/opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/bin/arm-none-eabi-gdb"
+                "miDebuggerPath": "arm-none-eabi-gdb"
             },
             "osx": {
               "MIMode": "lldb",
@@ -37,7 +37,7 @@
             "externalConsole": false,        
             "linux": {
                 "MIMode": "gdb",
-                "miDebuggerPath": "/opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/bin/arm-none-eabi-gdb"
+                "miDebuggerPath": "arm-none-eabi-gdb"
             },
             "osx": {
               "MIMode": "lldb",
@@ -59,7 +59,7 @@
             "externalConsole": false,        
             "linux": {
                 "MIMode": "gdb",
-                "miDebuggerPath": "/opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/bin/arm-none-eabi-gdb"
+                "miDebuggerPath": "arm-none-eabi-gdb"
             },
             "osx": {
               "MIMode": "lldb",
@@ -81,7 +81,7 @@
             "externalConsole": false,        
             "linux": {
                 "MIMode": "gdb",
-                "miDebuggerPath": "/opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/bin/arm-none-eabi-gdb"
+                "miDebuggerPath": "arm-none-eabi-gdb"
             },
             "osx": {
               "MIMode": "lldb",
