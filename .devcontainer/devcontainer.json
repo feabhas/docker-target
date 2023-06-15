@@ -31,11 +31,11 @@
 
     // Uncomment the next line to run commands after the container is created - for example installing curl.
     "onCreateCommand": {
-        "readme": "mv ../projects/cmake-host/README.md ../projects/cmake-host/README-host.md"
+        "readme": "mv ../projects/cmake-target/README.md ../projects/cmake-target/README-host.md"
     },
     "postCreateCommand": {
         "sources": "mkdir -p include src",
-        "clone": "cp -r $(ls -d ../projects/cmake-host/* | grep -Ev '/?(src|include)/?$') .",
+        "clone": "cp -r $(ls -d ../projects/cmake-target/* | grep -Ev '/?(src|include)/?$') .",
         "git": "rm -rf .git*"
     },
     
