@@ -1,15 +1,33 @@
 # Feabhas Docker Training Project
 
+# Prerequisites
+
+You will need the following software to use this project:
+
+   * [Docker desktop](https://www.docker.com/products/docker-desktop/)
+   * [Visual Studio Code](https://code.visualstudio.com/) and DevContainers extension (installed through VS Code)
+   * [Python](https://www.python.org/) (3.9 or later) and Tkinter *see note*
+
+*TkInter*: On Windows TkInter is installed alongside python but on 
+other platforms you will need to install it manually. Please make sure
+you install Tkinter for Python3, for example:
+   * Ubuntu (Debian, Mint): `sudo apt-get install python3-tk`
+   * Fedora: `sudo dnf install python3-tkinter`
+   * Arch: `sudo pacman -S tk`
+   * RHEL (CentOs, Oracle): `sudo yum install python3-tkinter`
+   * macOS: `brew install python-tk`
+
 # Getting Started
 
-Download this git repo to your local machine. If possible you should clone
-the repo to your local hard drive and avoid using network attached storage
-as the editing and build process is disk I/O intensive.
+Download this git repo to your local machine using either git or unpacking 
+the ZIP archive. If possible you should store the repo on your local hard 
+drive and avoid using network attached storage as the 
+editing and build process is disk I/O intensive.
 
 Avoid placing the folder in an area that is mirrored using OneDrive, 
 Google Drive or similar for the same reasons.
 
-Install and then startup VS Code. Use the extension icon (left hand icon
+Install and then startup VS Code. Use the Code Extension icon (left hand icon
 bar) to install the Dev Containers extension from Microsoft. You may need to 
 restart VS code after doing this. 
 
@@ -45,13 +63,14 @@ a diagnostic interface on port 8888 which is mapped for access from the host.
 
 # Building an Application
 
-The Feahbas project build process uses [CMake](https://cmake.org/) as the underlying
-build system. CMake is itself a build system generator and we have configured
-it to generate the build files used by [GNU Make](https://www.gnu.org/software/make/).
+The Feahbas project build process uses [CMake](https://cmake.org/) as 
+the underlying build system. CMake is itself a build system generator and 
+we have configured it to generate the build files 
+used by [GNU Make](https://www.gnu.org/software/make/).
 
-Using CMake is a two step process: generate build files and then build. To simplify 
-this and to allow you to add additional source and header files we have 
-created a front end script `build.sh` to automate the build.
+Using CMake is a two step process: generate build files and then build. 
+To simplify this and to allow you to add additional source and header 
+files we have created a front end script `build.sh` to automate the build.
 
 You can add additional C/C++ source and header files to the `src` directory. If 
 you prefer you can place your header files in the `include` directory.
@@ -104,8 +123,7 @@ called `exercises` in one of the following locations:
    * A sub-folder in the workspace folder
 
 **NOTE:** this script will copy all files in the `src` directory to 
-the `src.bak` directory having
-removed any files already present in `src.bak`.
+the `src.bak` directory having removed any files already present in `src.bak`.
 
 # Runing an Application in QEMU
 
@@ -113,7 +131,8 @@ The Docker based training project runs a version of QEMU that opens
 a diagnostics interface on port 8888 which can be accessed from the 
 host operating system. A graphic represenion of the emulated WMS 
 hardware is provided by a Python script (`qemu-qms.py`) that must
-be run on the host. 
+be run on the host. Make sure you have installed Python TkInter if you
+are not using Microsoft Windows. 
 
 To run the application without debugging:
 
@@ -176,11 +195,11 @@ There are extra launch scripts configure under VS Code **Test Tasks**
 to run with USART3 connected to the serial port 7777. 
 
 When using the Python GUI click on the `Connect+Serial` button to connect 
-to both diagnostic and ports. The bottom area of the GUI will display an interactive text 
-area you can use to send and receive using USART3.
+to both diagnostic and ports. The bottom area of the GUI will display an 
+interactive text area you can use to send and receive using USART3.
 
 A `telnet` command is provided in the Docker image configured for single
-character I/O  if you prefer to use the command line for USART teating.
+character I/O  if you prefer to use the command line for USART testing.
 
 # VS Code tasks and launch actions
 
@@ -206,8 +225,8 @@ VS Code debug tasks (use F5 or Debug view):
 
 # VS Code Debugging
 
-To debug your code with the interactive (visual) debugger press the `<F5>` key or use the
-**Run -> Start Debugging** menu.
+To debug your code with the interactive (visual) debugger press the `<F5>` 
+key or use the **Run -> Start Debugging** menu.
 
 The debug sessions may stop at the entry to the `main` function and display 
 a red error box saying:
@@ -219,10 +238,11 @@ Exception has occurred.
 This is normal: just close the warning popup and use the debug 
 icon commands at the top of the code window to
 manage the debug system. The icons are (from left to right):
-  **continue**, **stop over**, **step into**, **step return**, 
-  **restart** and **quit**
+
+   *  **continue** - **stop over** - **step into** - **step return** - **restart** - **stop**
   
-A number of debug launch tasks are shown in a drop down list at the top of the debug view.
+A number of debug launch tasks are shown in a drop down list at the top of
+the debug view.
 
 Preselect one of the launch options before pressing `<F5>` to debug with:
 
@@ -240,29 +260,33 @@ To debug a program just using the GPIO port requires two terminal sessions.
 $ ./run_qemu.sh gdb
 ```
 A monitor window will appear and there will be some debug output. 
-The QEMU simulation will halt at the first instruction waiting for a GDB connection.
+The QEMU simulation will halt at the first instruction waiting for a 
+GDB connection.
 
 2. In another terminal, run GDB with
 ```
 $ ./gdb-qemu.sh
 ```
 
-Diagnostic output will appear in the `gdb` window ending with prompt to continue:
+Diagnostic output will appear in the `gdb` window ending with prompt to 
+continue:
 ```
 ...
 ..
 -- Type <RET> for more, q to quit, c to continue without paging--
 ```
 
-Press <Enter> at this point to see the code of the `main` function and the `(gdb)` 
-prompt for debug commands.
+Press <Enter> at this point to see the code of the `main` function 
+and the `(gdb)` prompt for debug commands.
 
 3. Type 
    * `c` (continue) to run
    * `n` for next (step-over)
    * `s` for step (step-in)
 
-If GPIO-D pins 8..11 are written to, output will appear in the QEMU windows, such as:
+If GPIO-D pins 8..11 are written to, output will appear in the QEMU windows, 
+such as:
+
 ```
 [led:A on]
 [seven-segment 1]
