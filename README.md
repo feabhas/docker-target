@@ -208,8 +208,8 @@ Once the GUI is conmnected to the emulator you can use the buttons:
    * `Disconnect` to dettach the GUI but leave the emulation running
    * `Halt` to stop the emulation and dettach the GUI
    
-Closing the Python GUI using the `Quit` button or thye normal windows close icon
-will not stop the emulation.
+Closing the Python GUI using the `Quit` button or the normal windows close icon
+will also stop the emulation.
 
 Use the Python GUI to monitor and interact with the program. 
 
