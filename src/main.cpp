@@ -21,8 +21,7 @@
 int main()
 {
     for(unsigned i=0; i< 5; ++i) {
-        std::cout << "tick..." << std::endl;
+        std::cout << "tick...\n";
         sleep(1000);
     };
-    return 0;
 }
