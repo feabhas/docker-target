@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """
 Remote access to XPack QEMU Washing Machine Simulator
 
@@ -37,6 +37,7 @@ import socket
 import threading
 import zipfile
 from collections import namedtuple
+from enum import Enum
 import tkinter as tk
 from datetime import datetime
 from pathlib import Path
@@ -44,7 +45,7 @@ import select
 from tkinter import ttk, messagebox, simpledialog
 from typing import AnyStr, Optional
 
-__VERSION__ = '1.1.0'
+__VERSION__ = '1.1.1'
 
 # timeout on socket - devcontainer ports seem to be open after client shuts down
 QEMU_TIMEOUT = 3.0
@@ -58,6 +59,8 @@ DISPLAY_WARN = 5000
 GEOMETRY = ('946x494', '946x682')
 # virtual event for listeners
 QEMU_MESSAGE = '<<qemu>>'
+
+Connect = Enum('Connect', ['disconnected', 'connecting', 'connected'])
 
 
 class ButtonStyle:
@@ -276,15 +279,6 @@ class QEmuSerial:
             total += sent
 
 
-# class WmsOverlay:
-#     """ Tags to identify image overlays"""
-#     sseg = 0
-#     motor = 1
-#     spinner = 2
-#     led = 3     # A B C D
-#     buttons = 7  # door PS1 PS2 PS3 (same order as pins)
-#     SIZE = 11
-
 class WmsBoard:
     """ Maintains state of the graphic board display """
     def __init__(self, canvas: tk.Canvas):
@@ -489,7 +483,7 @@ class WmsGui:
         self.serial = None
         self.device_ticks = 0
         self.warn_ticks = 0
-        self.connecting = True
+        self.connected = Connect.disconnected
         self.reconnect = True
         self.host = Config.host
         self.style = ttk.Style()
@@ -610,7 +604,8 @@ class WmsGui:
             if self.serial:
                 self.serial.close()
                 self.serial = None
-        self.connecting = self.reconnect = True
+        self.connected = Connect.disconnected
+        self.reconnect = True
         self.device_ticks = self.warn_ticks = 0
 
     @catch()
@@ -674,10 +669,10 @@ or\t"./run-qemu.sh diag{serial}"''')
         tag = event.state
         value = event.x
         if tag == QEmuTag.gpiod_enabled:
-            if self.connecting:
+            if self.connected != Connect.connected:
                 self.warning('QEMU connected OK')
                 self.do_enable_buttons(True)
-                self.connecting = False
+                self.connected = Connect.connected
             gpiod_on = (value >> 3) & 1
             self.gpiod.set(1 if gpiod_on else 0)
         elif tag == QEmuTag.moder:
@@ -713,7 +708,10 @@ or\t"./run-qemu.sh diag{serial}"''')
         elif tag == QEmuTag.qemu_shutdown:
             self.board.reset()
             if self.listener:
-                self.show_connect_error('QEMU is not running')
+                if self.connected == Connect.connected:
+                    self.warning(f'QEMU has closed down')
+                else:
+                    self.show_connect_error('QEMU is not running')
             self.do_disconnect()
         else:
             self.warning(f'Internal error: unknown qemu tag {int(tag)}')
