@@ -396,3 +396,24 @@ ensures modules are compiled in the order defined in the `Modules.txt` file and 
 main `src` files. Following MSVC and VS Code conventions the modules should be defined 
 in `*.ixx` files.
 
+# Disclaimer
+
+Feabhas is furnishing these items *"as is"*. Feabhas does not provide any
+warranty of them whatsoever, whether express, implied, or statutory,
+including, but not limited to, any warranty of merchantability or fitness
+for a particular purpose or any warranty that the contents their will
+be error-free.
+
+In no respect shall Feabhas incur any liability for any damages, including,
+but limited to, direct, indirect, special, or consequential damages arising
+out of, resulting from, or any way connected to the use of the item, whether
+or not based upon warranty, contract, tort, or otherwise; whether or not
+injury was sustained by persons or property or otherwise; and whether or not
+loss was sustained from, or arose out of, the results of, the item, or any
+services that may be provided by Feabhas.
+
+The items are intended for use as an educational aid.Typically code solutions 
+will show best practice of language features that have been introduced during 
+the associated training, but do not represent production quality code. 
+Comments and structured documentation are not included because the code 
+itself is intended to be studied as part of the learning process.

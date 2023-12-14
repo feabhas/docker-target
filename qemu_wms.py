@@ -1,4 +1,3 @@
-
 """
 Remote access to XPack QEMU Washing Machine Simulator
 
@@ -31,7 +30,8 @@ normally a problem but be aware that:
    * latch is off so PS keys do not stay high
    * Logic of door open pin is inverted as high is considered open
 
-Martin Bond: June 2023
+See project README.md for disclaimer and additional information.
+Feabhas Ltd
 """
 import socket
 import threading
