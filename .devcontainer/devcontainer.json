@@ -34,8 +34,9 @@
         "readme": "mv ../projects/cmake-target/README.md ../projects/cmake-target/README-target.md"
     },
     "postCreateCommand": {
+        "clang": "mv .clang-format ~",
         "sources": "mkdir -p include src",
-        "clone": "cp -r $(ls -d ../projects/cmake-target/* | grep -Ev '/?(src|include)/?$') .",
+        "clone": "cp -r $(ls -d ~/projects/cmake-target/* | grep -Ev '/?(src|include)/?$') .",
         "git": "rm -rf .git*"
     },
     
