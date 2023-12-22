@@ -45,7 +45,7 @@ import select
 from tkinter import ttk, messagebox, simpledialog
 from typing import AnyStr, Optional
 
-__VERSION__ = '1.1.1'
+__VERSION__ = '1.2.0'
 
 # timeout on socket - devcontainer ports seem to be open after client shuts down
 QEMU_TIMEOUT = 3.0
@@ -59,6 +59,8 @@ DISPLAY_WARN = 5000
 GEOMETRY = ('946x494', '946x682')
 # virtual event for listeners
 QEMU_MESSAGE = '<<qemu>>'
+
+SCRIPT_HOME = Path(__file__).parent
 
 Connect = Enum('Connect', ['disconnected', 'connecting', 'connected'])
 
@@ -88,8 +90,9 @@ class Board:
     rcc_ahbenr = b'M40023830? '
     rcc_apb1enr = b'M40023840? '
     graphics_lib = 'graphics'
-    graphics_zip = 'qemu_wms_graphics.zip'
+    graphics_zip = 'qemu-wms-graphics.zip'
     board_image = 'feabhas-wms-768.png'
+    icon = 'qemu-wms-icon.png'
     image_x = 768
     image_y = 356
 
@@ -290,6 +293,7 @@ class WmsBoard:
         self.sprite = 0
         self.direction = 0
         self.images = [0] * len(Board.overlays)
+        self.icon = None
 
     @staticmethod
     def find_button(x: int, y: int):
@@ -299,22 +303,27 @@ class WmsBoard:
                     return button
         return None
 
-    @staticmethod
-    def build_overlay(root):
-        graphics = Path(Board.graphics_lib)
+    def build_overlay(self, root):
+        graphics = SCRIPT_HOME / Board.graphics_lib
+        zip = SCRIPT_HOME / Board.graphics_zip
+        print(zip)
         if graphics.exists():
             for tag, overlay in Board.overlays.items():
                 for i, name in enumerate(overlay.images):
                     with (graphics / name).open('rb') as file:
                         overlay.images[i] = tk.PhotoImage(master=root, data=file.read())
+            with (graphics / Board.icon).open('rb') as file:
+                self.icon = tk.PhotoImage(master=root, data=file.read())
             with (graphics / Board.board_image).open('rb') as file:
                 return tk.PhotoImage(master=root, data=file.read())
-        elif Path(Board.graphics_zip).exists():
-            with zipfile.ZipFile(Board.graphics_zip) as archive:
+        elif zip.exists():
+            with zipfile.ZipFile(zip) as archive:
                 for tag, overlay in Board.overlays.items():
                     for i, name in enumerate(overlay.images):
                         with archive.open(name) as file:
                             overlay.images[i] = tk.PhotoImage(master=root, data=file.read())
+                with archive.open(Board.icon) as file:
+                    self.icon = tk.PhotoImage(master=root, data=file.read())
                 with archive.open(Board.board_image) as file:
                     return tk.PhotoImage(master=root, data=file.read())
         else:
@@ -528,10 +537,11 @@ class WmsGui:
         canvas.bind('<ButtonRelease-1>', self.on_b1_up)
         canvas.bind('<Motion>', self.on_move)
         self.board = WmsBoard(canvas)
-
         try:
             self.image = self.board.build_overlay(root)
             canvas.create_image(0, 0, image=self.image, anchor=tk.NW)
+            if self.board.icon is not None:
+                root.iconphoto(False, self.board.icon)
         except Exception as err:
             messagebox.showerror('Startup error', f'Error or missing graphics file:\n{err}')
             raise KeyboardInterrupt(err)

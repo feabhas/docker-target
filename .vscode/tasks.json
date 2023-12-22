@@ -34,7 +34,6 @@
             "dependsOn": "Build",
             "type": "shell",
             "command": "${workspaceFolder}/run-qemu.sh",
-            "args": [ "diag" ],
             "group": "test",
             "problemMatcher": []
         },
@@ -43,29 +42,29 @@
             "dependsOn": "Build",
             "type": "shell",
             "command": "${workspaceFolder}/run-qemu.sh",
-            "args": [ "diag", "serial" ],
+            "args": [ "serial" ],
             "group": "test",
             "problemMatcher": []
         },
         {
-            "label": "Run QEMU container",
+            "label": "Run QEMU nographic",
             "dependsOn": "Build",
             "type": "shell",
             "command": "${workspaceFolder}/run-qemu.sh",
             "args": [
-                "-nographic",
+                "--nographic",
                 "${workspaceFolder}/build/debug/Application.elf"
             ],
             "group": "test",
             "problemMatcher": []
         },
         {
-            "label": "Run QEMU container serial",
+            "label": "Run QEMU nographic serial",
             "dependsOn": "Build",
             "type": "shell",
             "command": "${workspaceFolder}/run-qemu.sh",
             "args": [
-                "-nographic",
+                "--nographic",
                 "serial",
                 "${workspaceFolder}/build/debug/Application.elf"
             ],

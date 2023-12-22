@@ -31,7 +31,7 @@
 
     // Uncomment the next line to run commands after the container is created - for example installing curl.
     "onCreateCommand": {
-        "readme": "mv ../projects/cmake-target/README.md ../projects/cmake-target/README-host.md"
+        "readme": "mv ../projects/cmake-target/README.md ../projects/cmake-target/README-target.md"
     },
     "postCreateCommand": {
         "sources": "mkdir -p include src",

@@ -42,12 +42,12 @@ When VS Code opens the folder this will download a Docker container from
 `feabhas/docker-projects:latest`. This container is configured with a
 toolchain for building Feabhas embedded training projects including:
 
-   * Arm Embedded Toolchain (11.2)
+   * Arm GNU Toolchain
    * Customised xPack QEMU Washing Machine Simulator (WMS) emulator
-   * Host based GCC 11.2 and GDB
-   * Build tools GNU Make and CMake 2.23
-
-The container is about 2GB and will take a noticeable amount 
+   * Host based GCC and GDB
+   * Build tools GNU Make, Ninja and CMake
+  
+The container is about 3GB and will take a noticeable amount 
 of time to download.
 
 VS Code will connect to the remote container as user `feabhas` (password
@@ -164,11 +164,11 @@ project are moved to a `project` sub-folder as they are no longer required.
 For each exercise you can now open the appropriate sub-project
 folder and work within that folder to build and run your application.
 
-# Runing an Application in QEMU
+# Running an Application in QEMU
 
 The Docker based training project runs a version of QEMU that opens
 a diagnostics interface on port 8888 which can be accessed from the 
-host operating system. A graphic represenion of the emulated WMS 
+host operating system. A graphic representation of the emulated WMS 
 hardware is provided by a Python script (`qemu-qms.py`) that must
 be run on the host. Make sure you have installed Python TkInter if you
 are not using Microsoft Windows. 
@@ -203,10 +203,10 @@ terminal window:
 
 When the `main` function exits the QEMU emulator will stop.
 
-Once the GUI is conmnected to the emulator you can use the buttons:
+Once the GUI is connected to the emulator you can use the buttons:
 
-   * `Disconnect` to dettach the GUI but leave the emulation running
-   * `Halt` to stop the emulation and dettach the GUI
+   * `Disconnect` to detach the GUI but leave the emulation running
+   * `Halt` to stop the emulation and detach the GUI
    
 Closing the Python GUI using the `Quit` button or the normal windows close icon
 will also stop the emulation.
@@ -227,7 +227,7 @@ and cleared:
 The WMS boards has mouse click input for GPIO-D input pins:
    * Accept and Cancel keys (pins 5 & 4)
    * keys PS1, PS2 & PS3 (pins 1,2,3) switch on the led lights above the key
-   * when latched the PS* leds remain illuminated when the key is released
+   * when latched the PS* LEDs remain illuminated when the key is released
    * door open key (pin 0) toggles open/closed when pressed
    * motor feedback sensor (pin 6) is raised once every 0.1 secs when the motor is on
    * click on the centre of the motor spinner to pulse the motor sensor (pin 6)
@@ -242,7 +242,7 @@ to both diagnostic and ports. The bottom area of the GUI will display an
 interactive text area you can use to send and receive using USART3.
 
 A `telnet` command is provided in the Docker image configured for single
-character I/O  if you prefer to use the command line for USART testing.
+character I/O  if you prefer to use the command line for USART3 testing.
 
 # VS Code tasks and launch actions
 
@@ -365,7 +365,7 @@ and uncomment the line starting with `set(CMAKE_CXX_CLANG_TIDY`.
 # Testing support
 
 Create a sub-directory called `tests` with it's own `CMakeList.txt` and define
-yoru test suite (you don't need to include `enable_testing()` as this is done
+your test suite (you don't need to include `enable_testing()` as this is done
 in the project root config).
 
 Invoke the tests by adding the `test` option to the build command:
@@ -396,24 +396,3 @@ ensures modules are compiled in the order defined in the `Modules.txt` file and 
 main `src` files. Following MSVC and VS Code conventions the modules should be defined 
 in `*.ixx` files.
 
-# Disclaimer
-
-Feabhas is furnishing these items *"as is"*. Feabhas does not provide any
-warranty of them whatsoever, whether express, implied, or statutory,
-including, but not limited to, any warranty of merchantability or fitness
-for a particular purpose or any warranty that the contents their will
-be error-free.
-
-In no respect shall Feabhas incur any liability for any damages, including,
-but limited to, direct, indirect, special, or consequential damages arising
-out of, resulting from, or any way connected to the use of the item, whether
-or not based upon warranty, contract, tort, or otherwise; whether or not
-injury was sustained by persons or property or otherwise; and whether or not
-loss was sustained from, or arose out of, the results of, the item, or any
-services that may be provided by Feabhas.
-
-The items are intended for use as an educational aid.Typically code solutions 
-will show best practice of language features that have been introduced during 
-the associated training, but do not represent production quality code. 
-Comments and structured documentation are not included because the code 
-itself is intended to be studied as part of the learning process.
