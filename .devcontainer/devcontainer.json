@@ -34,10 +34,10 @@
         "readme": "mv ../projects/cmake-target/README.md ../projects/cmake-target/README-target.md"
     },
     "postCreateCommand": {
-        "clang": "mv .clang-format ~",
+        "clang": "/bin/bash -c '[[ -f .clang-format ]] && mv .clang-format ~' || true",
         "sources": "mkdir -p include src",
         "clone": "cp -r $(ls -d ~/projects/cmake-target/* | grep -Ev '/?(src|include)/?$') .",
-        "git": "rm -rf .git*"
+        "git": "/bin/bash -c '[[ -d .git ]] && rm -rf .git*' || true"
     },
     
     // Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
