@@ -25,7 +25,7 @@
             "logging": { "engineLogging": true },
             "miDebuggerServerAddress": "host.docker.internal:1234",   
             "debugServerPath": "${workspaceFolder}/run-qemu.sh",
-            "debugServerArgs": "diag gdb ${workspaceFolder}/build/debug/Application.elf",
+            "debugServerArgs": "gdb ${workspaceFolder}/build/debug/Application.elf",
         },
         {
             "name": "QEMU debug serial",        
@@ -48,7 +48,7 @@
             "logging": { "engineLogging": false },
             "miDebuggerServerAddress": "host.docker.internal:1234",   
             "debugServerPath": "${workspaceFolder}/run-qemu.sh",
-            "debugServerArgs": "diag serial gdb ${workspaceFolder}/build/debug/Application.elf",
+            "debugServerArgs": "serial gdb ${workspaceFolder}/build/debug/Application.elf",
         },
         {
             "name": "QEMU debug container",        
