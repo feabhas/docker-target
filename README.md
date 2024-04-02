@@ -54,16 +54,36 @@ rename this folder if you wish. This is your workspace folder that you
 would normally open using [Visual Studio Code](https://code.visualstudio.com/)
 (see later).
 
+We have initialised an empty git repo in the workspace so that you can 
+save your working files at any time.
+
 ## Obtaining the course exercises
 
-Your course joining instructions or you instructor will provide a link
+Inside your `docker-target` workspace there is a `configure.py`
+script that can be used to copy the course exercises into your workspace. 
+You can run this script at any from your host enviroment
+or, once you've opened the project workspace, from a terminal
+window in VS Code using the command:
+
+```
+$ python3 configure.py
+```
+
+You will now have a sub-folder with a name mathcing `<COURSE>_exercises`.
+where `<COURSE>` is the unqiue code for your course (such as cpp11-501).
+
+Alternatively your course joining instructions will provide a link
 to a [Feabhas GitHub](https://github.com/orgs/feabhas/repositories) 
 repo containing the the exercise solutions and and starter templates
 required to complete the training exercises. 
 
-From within the `docker-target` workspace folder you have just created 
-clone the GitHub **exercises**. You will now have a sub-folder
-with a name ending with `_exercises`. 
+Clone this GitHub `*_exercises` repo into the `docker-target` workspace 
+you have just created. 
+
+A second Python script called `copy_solution.py` can be used to 
+interactively select an exercise solution and have this copied into 
+your workspace source folder replacing your existing files. You current
+files will have been saved and commited to the git repo.
 
 ## Using the Visual Studio Code IDE
 
@@ -263,7 +283,36 @@ character I/O  if you prefer to use the ubuntu command line for USART3 testing.
 
 # Building an exercise solution
 
-To build any of the exercise solutions run the script:
+You must have downloaded the course solutions and stored them in your
+workspace as described at the start of this README. If you haven't done so
+already run the command
+
+```
+$ python3 configure.py
+```
+
+And select your course from the list of courses you're presented with.
+
+To build a solution run the command:
+
+```
+$ python3 copy_solution.py
+```
+
+Select the required solution from the list you are shown. On loading
+a solution teh script will:
+
+   * save and commit your current files using git
+   * replace all of your souirce files with those from the the solution
+
+You will now need to build you application as normal (**Ctrl-B build**).
+
+**Note:** If the script cannot save your source files using git then they are
+copied to a `src.bak` folder. Only that last set of source files are saved in
+the backup folder.
+
+Alternaively you can build any of the exercise solutions using the 
+`build-one.sh` bash script:
 
 ```
 $ ./build-one.sh N 

@@ -37,7 +37,7 @@
         "clang": "/bin/bash -c '[[ -f .clang-format ]] && mv .clang-format ~' || true",
         "sources": "mkdir -p include src",
         "clone": "cp -r $(ls -d ~/projects/cmake-target/* | grep -Ev '/?(src|include)/?$') .",
-        "git": "/bin/bash -c '[[ -d .git ]] && rm -rf .git*' || true"
+        "git": "/bin/bash -c '[[ -d .git ]] && rm -rf .git; git init -b main; git config --global --add safe.directory /home/feabhas/workspace; git config core.safecrlf false; git add -A' || true"
     },
     
     // Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.

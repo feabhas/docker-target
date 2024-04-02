@@ -2,8 +2,13 @@
 import os
 import re
 import shutil
+import subprocess
 import sys
 from pathlib import Path
+
+
+WIN32 = sys.platform == 'win32'
+GIT = r'"C:\Program Files\Git\bin\git.exe"' if WIN32 else 'git'
 
 
 class Config:
@@ -37,7 +42,7 @@ def select_solution(solutions: Path):
     choice = input('Enter start of solution name (you can omit a leading zero)\nor q to quit? ').strip().lower()
     if not choice or choice.startswith('q'):
         raise UserWarning('No choice made')
-    found = [f for f in folders if re.match(f'^0?{choice}', f.name, re.IGNORECASE)]
+    found = [f for f in folders if re.match(f'^0?{choice}[-_]', f.name, re.IGNORECASE)]
     if not found:
         raise UserWarning(f'Choice {choice} did not match a solution')
     elif len(found) != 1:
@@ -45,7 +50,27 @@ def select_solution(solutions: Path):
     return found[0]
 
 
-def move_sources():
+def git_commit(solution: Path):
+    def run(cmd: str):
+        print(cmd)
+        cp = subprocess.run(cmd, shell=True)
+        cp.check_returncode()
+
+    try:
+        print(f'Saving source files to git')
+        run(f'{GIT} add -A')
+        run(f'{GIT} commit -qm "Loading solution: {solution.name}"')
+        return True
+    except subprocess.SubprocessError as ex:
+        print(f'git command failed')
+    return False
+
+
+def save_sources(solution: Path):
+    git = Path('.git')
+    if git.exists():
+        if git_commit(solution):
+            return
     backup = Config.backup
     backup.mkdir(parents=True, exist_ok=True)
     print(f'Moving current source files to "{backup.name}"')
@@ -66,6 +91,8 @@ def copy_solution(solution):
             continue
         print(f'Copying solution sources from "{source.parent.name}/{source.name}"')
         target = Path(folder if folder != '.' else 'src')
+        if target.exists():
+            shutil.rmtree(target)
         shutil.copytree(source, target)
 
 
@@ -73,9 +100,9 @@ def do_copy_solution():
     solutions = find_solutions()
     solution = select_solution(solutions)
     print(f'Copying solution "{solution.name}"')
-    move_sources()
+    save_sources(solution)
     copy_solution(solution)
-    print('You should now rebuild your application')
+    print('*** You should now rebuild your application ***')
 
 
 def main():
@@ -91,7 +118,7 @@ def main():
         print(ex, file=sys.stderr)
         import traceback
         print(traceback.format_exc(), file=sys.stderr)
-    if sys.platform == 'win32' and not os.getenv('PROMPT'):
+    if WIN32 and not os.getenv('PROMPT'):
         input('Press enter to close the window')
     exit(status)
 
