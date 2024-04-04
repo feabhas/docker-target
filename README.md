@@ -28,11 +28,11 @@ You will need the following software to use this project:
 
    * [Docker desktop](https://www.docker.com/products/docker-desktop/)
    * [Visual Studio Code](https://code.visualstudio.com/) and DevContainers extension (installed through VS Code)
-   * [Python](https://www.python.org/) (3.9 or later) and Tkinter *see note*
+   * [Python](https://www.python.org/) (3.9 or later) and TkInter *see note*
 
 *TkInter*: On Windows TkInter is installed alongside python but on 
 other platforms you will need to install it manually. Please make sure
-you install Tkinter for Python3, for example:
+you install TkInter for Python3, for example:
    * Ubuntu (Debian, Mint): `sudo apt-get install python3-tk`
    * Fedora: `sudo dnf install python3-tkinter`
    * Arch: `sudo pacman -S tk`
@@ -59,9 +59,11 @@ save your working files at any time.
 
 ## Obtaining the course exercises
 
-Inside your `docker-target` workspace there is a `configure.py`
-script that can be used to copy the course exercises into your workspace. 
-You can run this script at any from your host enviroment
+Inside your `docker-target` workspace subfolder called `scripts` there is 
+a `configure.py` script that can be used to copy the course exercises 
+into your workspace. 
+
+You can run this script at any time from your host environment
 or, once you've opened the project workspace, from a terminal
 window in VS Code using the command:
 
@@ -69,21 +71,22 @@ window in VS Code using the command:
 $ python3 configure.py
 ```
 
-You will now have a sub-folder with a name mathcing `<COURSE>_exercises`.
-where `<COURSE>` is the unqiue code for your course (such as cpp11-501).
+The script will supply a list of suitable courses for you to choose from and
+these exercises will be download from the appropriate Feabhas GitHub repo.
+
+You will now have a sub-folder with a name of the form `<COURSE>_exercises`.
+where `<COURSE>` is the unique code for your course (such as cpp11-501).
+
+If you know you course code you can supply this as a command line parameter
+to the script.
 
 Alternatively your course joining instructions will provide a link
 to a [Feabhas GitHub](https://github.com/orgs/feabhas/repositories) 
-repo containing the the exercise solutions and and starter templates
-required to complete the training exercises. 
+repo containing the the exercise solutions and optional starter templates
+required for the training exercises. 
 
 Clone this GitHub `*_exercises` repo into the `docker-target` workspace 
 you have just created. 
-
-A second Python script called `copy_solution.py` can be used to 
-interactively select an exercise solution and have this copied into 
-your workspace source folder replacing your existing files. You current
-files will have been saved and commited to the git repo.
 
 ## Using the Visual Studio Code IDE
 
@@ -121,7 +124,7 @@ toolchain for building Feabhas host training projects including:
    * WMS Python GUI application to execute on the host
    * Ubuntu GNU Toolchain and GDB
    * Build tools GNU Make, Ninja and CMake
-   * Test tools googletest, gmock, puncover and valgrind
+   * Test tools `googletest`, `gmock`, `puncover` and `valgrind`
   
 The container is about 3GB and will take a noticeable amount 
 of time to download.
@@ -136,7 +139,7 @@ for building and running applications on the Ubuntu image.
 
 ***Note:** The Docker container does not use the embedded QEMU graphics 
 but opens a diagnostic interface on port 8888 which is mapped for access 
-b y the WMS Pythn GUI that is run on the host (see later).
+by the WMS Pythn GUI that is run on the host (see later).
 
 # Developing an embedded application
 
@@ -299,19 +302,22 @@ To build a solution run the command:
 $ python3 copy_solution.py
 ```
 
-Select the required solution from the list you are shown. On loading
-a solution teh script will:
+Select the required solution from the list you are shown. 
+
+You may supply the solution number (optionally omitting a leading zero)
+on the command line to avoid the interactive prompt.
+
+On loading a solution the script will:
 
    * save and commit your current files using git
-   * replace all of your souirce files with those from the the solution
-
-You will now need to build you application as normal (**Ctrl-B build**).
+   * replace all of your source files with those from the the solution
+   * rebuild the solution
 
 **Note:** If the script cannot save your source files using git then they are
 copied to a `src.bak` folder. Only that last set of source files are saved in
 the backup folder.
 
-Alternaively you can build any of the exercise solutions using the 
+Alternatively you can build any of the exercise solutions using the 
 `build-one.sh` bash script:
 
 ```
@@ -391,7 +397,8 @@ This is normal: just close the warning popup and use the debug
 icon commands at the top of the code window to
 manage the debug system. The icons are (from left to right):
 
-   *  **continue** - **stop over** - **step into** - **step return** - **restart** - **stop**
+   *  **continue** - **stop over** - **step into** - 
+      **step return** - **restart** - **stop**
   
 A number of debug launch tasks are shown in a drop down list at the top of
 the debug view.
