@@ -39,6 +39,11 @@ you install TkInter for Python3, for example:
    * RHEL (CentOs, Oracle): `sudo yum install python3-tkinter`
    * macOS: `brew install python-tk`
 
+On Apple Silicon devices runing macOS version 13 (Ventura) onwards the Rosetta emulation for 
+x86/amd64 should be disabled. On the Docker Desktop Settings screen 
+in the general section uncheck the entry for:
+   * Use Rosetta for x86/amd64 emulation on Apple Silicon
+
 # Getting Started
 
 Download this [Docker Target](https://github.com/feabhas/docker-target) git
