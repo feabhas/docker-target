@@ -6,7 +6,7 @@ CONFIG=${1:-host}
 # copy everyting except the src and include folders from the
 # taget project to avoid overwriting any src/include files on rebuild
 mkdir -p include src 
-cp -r $(ls -d ~/projects/cmake-$CONFIG/* | grep -Ev '/?(src|include)/?$') .
+cp -rf $(ls -d ~/projects/cmake-$CONFIG/* | grep -Ev '/?(src|include)/?$') .
 
 # reset git repro simulating a shallow fork of the project
 if [[ ! -d .git ]]; then 
