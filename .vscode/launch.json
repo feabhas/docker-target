@@ -13,7 +13,8 @@
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
-            "externalConsole": false,        
+            "environment": [],
+            "externalConsole": false,       
             "linux": {
                 "MIMode": "gdb",
                 "miDebuggerPath": "arm-none-eabi-gdb"
@@ -22,8 +23,11 @@
               "MIMode": "lldb",
               "miDebuggerPath": "/usr/local/bin/arm-none-eabi-gdb"
             },
+            // engine logging required for serial port debugging
             "logging": { "engineLogging": true },
-            "miDebuggerServerAddress": "host.docker.internal:1234",   
+            // stopped working Oct 2024 with Ubuntu 24.04
+            // "miDebuggerServerAddress": "host.docker.internal:1234",
+            "miDebuggerServerAddress": "localhost:1234",   
             "debugServerPath": "${workspaceFolder}/run-qemu.sh",
             "debugServerArgs": "gdb ${workspaceFolder}/build/debug/Application.elf",
         },
@@ -36,6 +40,7 @@
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
+            "environment": [],
             "externalConsole": false,        
             "linux": {
                 "MIMode": "gdb",
@@ -45,8 +50,8 @@
               "MIMode": "lldb",
               "miDebuggerPath": "/usr/local/bin/arm-none-eabi-gdb"
             },
-            "logging": { "engineLogging": false },
-            "miDebuggerServerAddress": "host.docker.internal:1234",   
+            "logging": { "engineLogging": true },
+            "miDebuggerServerAddress": "localhost:1234",   
             "debugServerPath": "${workspaceFolder}/run-qemu.sh",
             "debugServerArgs": "serial gdb ${workspaceFolder}/build/debug/Application.elf",
         },
@@ -59,6 +64,7 @@
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
+            "environment": [],
             "externalConsole": false,        
             "linux": {
                 "MIMode": "gdb",
@@ -68,8 +74,8 @@
               "MIMode": "lldb",
               "miDebuggerPath": "/usr/local/bin/arm-none-eabi-gdb"
             },
-            "logging": { "engineLogging": false },
-            "miDebuggerServerAddress": "host.docker.internal:1234",   
+            "logging": { "engineLogging": true },
+            "miDebuggerServerAddress": "localhost:1234",   
             "debugServerPath": "${workspaceFolder}/run-qemu.sh",
             "debugServerArgs": "-nographic gdb ${workspaceFolder}/build/debug/Application.elf",
         },
@@ -82,6 +88,7 @@
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
+            "environment": [],
             "externalConsole": false,        
             "linux": {
                 "MIMode": "gdb",
@@ -91,8 +98,8 @@
               "MIMode": "lldb",
               "miDebuggerPath": "/usr/local/bin/arm-none-eabi-gdb"
             },
-            "logging": { "engineLogging": false },
-            "miDebuggerServerAddress": "host.docker.internal:1234",   
+            "logging": { "engineLogging": true },
+            "miDebuggerServerAddress": "localhost:1234",   
             "debugServerPath": "${workspaceFolder}/run-qemu.sh",
             "debugServerArgs": "-nographic gdb serial ${workspaceFolder}/build/debug/Application.elf",
         }
