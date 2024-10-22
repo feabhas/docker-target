@@ -8,10 +8,9 @@ CONFIG=${1:-host}
 mkdir -p include src 
 cp -rf $(ls -d ~/projects/cmake-$CONFIG/* | grep -Ev '/?(src|include)/?$') .
 
-# reset git repro simulating a shallow fork of the project
-if [[ ! -d .git ]]; then 
-  git init -b main
+# remove .git repos that may cause warnings on first build with no src files
+if ! test -f src/main.*; then
+  echo "Remove .git folders on first build"
+  rm -rf .git 2>/dev/null
+  rm -rf *-[0-9][0-9][0-9]_exercises/.git 2>/dev/null
 fi
-git config --global --add safe.directory /home/feabhas/workspace
-git config core.safecrlf false
-git add -A
